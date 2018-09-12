@@ -1,0 +1,13 @@
+version: '2'
+services:
+  mongodb:
+    image: 496323866215.dkr.ecr.eu-west-1.amazonaws.com/demo/np-mongodb:latest
+    hostname: "np-mongodb"
+  national-parks:
+    image: 496323866215.dkr.ecr.eu-west-1.amazonaws.com/demo/national-parks:latest
+    ports:
+      - 8080:8080
+      - 9631:9631
+    links:
+      - mongodb
+    command: --peer np-mongodb --bind database:np-mongodb.default -u https://bldr.habitat.sh --channel stable -s at-once
